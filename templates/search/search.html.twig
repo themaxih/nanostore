@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/search.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+{% set nombreArticleTrouve = listeProduits.getTotalItemCount() %}
+<div class="content">
+    <span >Résultat de votre recherche</span>
+    {% if nombreArticleTrouve == 0 %}
+        <span>Aucun produit trouvé.</span>
+    {% else %}
+        <div id="search-result">
+            <span>{{ nombreArticleTrouve }} résultats trouvés{% if recherche != "" %} pour "{{ recherche }}"{% endif %}.</span>
+
+            <label>
+                Trier par :
+                <select id="search-sort">
+                    {% set currentUrl, currentParameters = app.request.pathinfo ~ '?', app.request.query.all %}
+
+                    {% set datas = currentUrl == '/search?' ? {'pertinence': 'Pertinence'} : {} %}
+
+                    {% set datas = datas|merge({
+                        'alphabetical': 'Ordre alphabétique',
+                        'price-asc': 'Prix : Ordre croissant',
+                        'price-desc': 'Prix : Ordre décroissant'
+                    }) %}
+
+                    {% for sortName, optionName in datas %}
+                        {% set dataUrl = currentUrl ~ currentParameters|merge({'s': (sortName)})|url_encode %}
+                        {% set currentSortParameter = currentParameters['s'] is defined ? currentParameters['s'] : datas|first %}
+                        <option data-url="{{ dataUrl }}" {{ sortName == currentSortParameter ? 'selected' }}>{{ optionName }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div id="table">
+            <div class="tr">
+                <div class="th">Articles</div>
+                <div class="th">Prix</div>
+                <div class="th">Description</div>
+                <div class="th"></div> <!-- Ajouter au panier -->
+            </div>
+
+            {% for produit in listeProduits %}
+                <a class="tr product pointer" href="{{ '/product?' ~ {'ref': produit.title}|url_encode }}">
+                    <div class="td">
+                        <div class="title">
+                            <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="170" height="170">
+                            <div style="display: grid">
+                                {{ produit.title }}
+                                {% if produit.quantityLeft > 10 %}
+                                    <span id="in-stock">En stock</span>
+
+                                {% elseif produit.quantityLeft == 0 %}
+                                    <span id="out-of-stock">Rupture de stock</span>
+                                {% else %}
+                                    <span id="low-stock">Il ne reste plus que {{ produit.quantityLeft }} exemplaire(s) en stock.</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="td price gras">
+                        {{ produit.price }} €
+                    </div>
+                    <div class="td description">
+                        {{ produit.description }}
+                    </div>
+                    <div class="td">
+                        <form action="{{ path('add_cart', { id: produit.id }) }}" method="post">
+                            <button name="addToCart" type="submit" class="add-to-cart" {{ produit.quantityLeft == 0 ? 'disabled' }}>
+                                Ajouter au panier
+                                <img src="{{ asset('assets/Panier2.svg') }}" alt="Panier" width="32" height="32"/>
+                            </button>
+                        </form>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        {% include asset('search/pagination.html.twig') %}
+
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {% if not listeProduits is empty %}
+        <script src="{{ asset('scripts/sortListener.js') }}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}

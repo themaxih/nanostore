@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('styles/cart/cart.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+
+{% set isEmpty = panierProduits is empty %}
+{% set prixTotal = 0 %}
+<div class="wrapper">
+    <div class="wrapper-content">
+        <div id="cart">
+            <span id="title">Votre panier</span>
+
+            {% if isEmpty %}
+                <span>Votre panier est vide.</span>
+            {% else %}
+                <table title="Votre panier">
+                    <tr>
+                        <th>Articles</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Coût total</th>
+                        <th>
+                            <form action="{{ path('empty_cart') }}" method="post">
+                                <button class="remove-from-cart" type="submit">
+                                    Vider le panier
+                                    <img src="{{ asset('assets/Panier2.svg') }}" alt="Panier" class="cart-icon"/>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                    {% for panierProduit in panierProduits %}
+                        {% set produit = panierProduit.product %}
+                        {% set quantiteChoisis = min(produit.quantityLeft, panierProduit.quantityChosen) %}
+                        <tr>
+
+                        {% if produit.quantityLeft == 0 %} {# Produit indisponible #}
+                            {% set nombreArticle = nombreArticle - 1 %}
+                            <td>
+                                <a class="title" href="{{ path('product_sheet', {'ref': produit.title}) }}">
+                                    <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="120" height="120">
+                                    <div class="product-title">
+                                        <span style="text-decoration: line-through">{{ produit.title }}</span>
+                                        <span id="out-of-stock">Cette article est momentanément indisponible.</span>
+                                    </div>
+                                </a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        {% else %} {# Quantité produit supérieure à 0 #}
+                            {% set prixTotal = prixTotal + quantiteChoisis * produit.price %}
+                            <td>
+                                <a class="title" href="{{ path('product_sheet', {'ref': produit.title}) }}">
+                                    <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="120" height="120">
+                                    <div class="product-title">
+                                        {{ produit.title }}
+                                        {% if produit.quantityLeft <= 10 %}
+                                            <span id="low-stock">Il ne reste plus que {{ produit.quantityLeft }} exemplaire(s) en stock.</span>
+                                        {% else %}
+                                            <span id="in-stock">En stock</span>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </td>
+                            <td class="price">{{ produit.price }} €</td>
+                            <td>
+                                <label class="quantity-select-wrapper">
+                                    Qté :
+                                    {% if produit.quantityLeft == 1 %}
+                                        1
+                                    {% else %}
+                                        <select name="quantity-select" class="quantity-select" data-product-id="{{ produit.id }}">
+                                            {% for i in range(1, min(10, produit.quantityLeft), 1) %}
+                                                <option value="{{ i }}" {{ min(quantiteChoisis, produit.quantityLeft) == i ? 'selected' }}>{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </label>
+                            </td>
+                            <td class="price total-price">{{ produit.price * quantiteChoisis }} €</td>
+                        {% endif %}
+
+                            <td>
+                                <form action="{{ path('delete_from_cart') }}" method="post">
+                                    <input type="hidden" name="productId" value="{{ produit.id }}">
+                                    <button type="submit" class="remove-from-cart">
+                                        Supprimer
+                                        <img src="{{ asset('assets/Panier2.svg') }}" alt="Panier" class="cart-icon"/>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+
+        {% if prixTotal != 0 %}
+        <div id="order">
+            <span id="totalText">Total</span>
+            <div>
+                <span>Sous-total ({{ nombreArticle }} article{{ nombreArticle > 1 ? 's' }}) : </span>
+                <span>{{ prixTotal }} €</span>
+            </div>
+            <a href="{{ path('order') }}">
+                PASSER COMMANDE
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/updateCart.js') }}"></script>
+{% endblock %}

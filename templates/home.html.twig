@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/accueil.css') }}"/>
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div id="background">
+        <span>DÉCOUVREZ TOUTE NOTRE GAMME GAMING !</span>
+        <a type="button" href="{{ path('search-by-sub-category', {'categoryHrefName': 'ordinateurs', 'subCategoryHrefName': 'ordinateurs-gaming'}) }}" class="white">J'en profite</a>
+    </div>
+    <div class="wrapper-content">
+        <h1 id="heading-text">
+            Nous vous proposons une sélection exclusive de produits électroniques <strong>haut de gamme</strong> et sur-mesure,<br>
+            alliant performance et innovation. Chaque appareil, fièrement assemblé avec <strong>expertise</strong>, reflète<br>
+            la qualité et le design moderne. Découvrez l'excellence technologique, directement<br>
+            depuis la <strong class="text-france" id="fr">Fr</strong><strong class="text-france" id="an">an</strong><strong class="text-france" id="ce">ce</strong>, avec NanoStore.
+        </h1>
+        <section id="strong-points">
+            <div class="strong-point">
+                <img alt="catalogue" src="{{ asset('assets/shop.svg') }}" width="96" height="96">
+                <span>
+                    <strong>Découvrez notre vaste catalogue</strong><br>
+                    de plus de 5 000 produits high-tech
+                    à la pointe de l'innovation.
+                </span>
+            </div>
+
+            <div class="strong-point">
+                <img alt="catalogue" src="{{ asset('assets/cpu-charge.svg') }}" width="96" height="96">
+                <span>
+                    <strong>Profitez d'une technologie de pointe</strong><br>
+                    avec notre gamme d'électronique
+                    entièrement conçue et fabriquée en France.
+                </span>
+            </div>
+
+            <div class="strong-point">
+                <img alt="catalogue" src="{{ asset('assets/user-tick.svg') }}" width="96" height="96">
+                <span>
+                    <strong>Rejoignez notre communauté de clients satisfaits.</strong><br>
+                    Plus de 96% de nos clients expriment leur satisfaction et fidélité.
+                    Expérience client approuvée et engagement qualité reconnu.
+                </span>
+            </div>
+            <div class="strong-point">
+                <img alt="catalogue" src="{{ asset('assets/command.svg') }}" width="96" height="96">
+                <span>
+                    <strong>Faites partie des 300 000 utilisateurs</strong><br>
+                    qui font confiance à NanoStore
+                    pour leurs besoins en électronique.
+                </span>
+            </div>
+        </section>
+
+        <div id="products">
+            <div class="product">
+                <h1 class="products-title left">LES TÉLÉPHONES</h1>
+                <section id="our-phones">
+                    <div class="products-presentation normal">
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'telephones', 'subCategoryHrefName': 'smartphones'}) }}" id="smartphones">
+                            <span>Nos smartphones</span>
+                        </a>
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'telephones', 'subCategoryHrefName': 'telephones-pliables'}) }}" id="smartphones-pliants">
+                            <span>Nos smartphones pliants</span>
+                        </a>
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'telephones', 'subCategoryHrefName': 'telephones-basiques'}) }}" id="telephones-basiques">
+                            <span>Nos téléphones basiques</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
+            <div class="product">
+                <h1 class="products-title right">LES ORDINATEURS</h1>
+                <section id="our-computers">
+                    <div class="products-presentation reverse">
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'ordinateurs', 'subCategoryHrefName': 'ordinateurs-portables'}) }}" id="ordinateurs-portables">
+                            <span>Nos ordinateurs portables</span>
+                        </a>
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'ordinateurs', 'subCategoryHrefName': 'ordinateurs-de-bureau'}) }}" id="ordinateurs-de-bureau">
+                            <span>Nos ordinateurs de bureau</span>
+                        </a>
+                        <a href="{{ path('search-by-sub-category', {'categoryHrefName': 'ordinateurs', 'subCategoryHrefName': 'ordinateurs-gaming'}) }}" id="ordinateurs-gamer">
+                            <span>Nos ordinateurs gaming</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}

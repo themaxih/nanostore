@@ -1,0 +1,71 @@
+{% extends 'user_page/user_page.html.twig' %}
+
+{% block user_page_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/addresses/user_addresses.css') }}">
+{% endblock %}
+
+
+{% block user_page_content %}
+<div class="section">
+    <div id="add-address">
+        <div>
+            <img alt="delivery-icon" src="{{ asset('assets/box.svg') }}" width="48" height="48" draggable="false">
+            <span class="section-title">Vos adresses</span>
+        </div>
+
+        <a type="button" href="{{ path('addAddress') }}">AJOUTER UNE ADRESSE</a>
+    </div>
+
+
+    <div id="addresses">
+        {% if addresses|length > 0 %}
+            {% if not defaultAddress is null %}
+                {% include asset('user_page/addresses/default_address.html.twig') %}
+                {% set addresses = addresses|filter(address => address.id != defaultAddress.id) %}
+            {% endif %}
+
+            {# On regarde si defaultAddress n'est pas null, si c'est le cas on l'enlève des addresses. #}
+            {% for address in addresses %}
+                    <div class="address">
+                        <div class="default-address">
+                            <span class="white" id="default-address" style="display: none">PAR DÉFAUT</span>
+                            <label>
+                                <input type="radio" class="radio-button" name="addressId" value="{{ address.id }}">
+                            </label>
+                        </div>
+
+                        <div class="address-name">
+                            <strong>{{ address.gender ? 'Mme' : 'M.' }} {{ address.lastName }} {{ address.firstName }}</strong>
+                        </div>
+
+                        <div class="address-data">
+                            {{ address.addressLine }}<br>
+                            {{ address.postalCode }} {{ address.city }}<br>
+                            Tel : {{ address.phoneNumber }}
+                        </div>
+
+                        <form action="{{ path('editAddress') }}" method="post">
+                            <button class="edit-address" value="{{ address.id }}" name="addressId" type="submit">
+                                <img alt="edit-address" src="{{ asset('assets/edit.svg') }}" width="30" height="30" draggable="false">
+                            </button>
+                        </form>
+
+                        <form action="{{ path('removeAddress') }}" method="post">
+                            <button class="delete-address" value="{{ address.id }}" name="addressId" type="submit">
+                                <img alt="remove-adress" src="{{ asset('assets/box-remove.svg') }}" width="30" height="30" draggable="false">
+                            </button>
+                        </form>
+                    </div>
+            {% endfor %}
+        {% else %}
+            Vous n'avez aucune adresses enregistrées.
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {% if addresses|length > 0 %}
+        <script src="{{ asset('scripts/switchDefaultAddress.js') }}"></script>
+    {% endif %}
+{% endblock %}

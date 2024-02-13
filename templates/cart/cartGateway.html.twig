@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('styles/cart/cartGateway.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="wrapper-content">
+        <div id="productAdded">
+            <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="120" height="120">
+
+            <div id="productInformations">
+                <div>
+                    <img alt="check_svg" src="{{ asset('assets/check_mark.svg') }}" width="32" height="32">
+                    <span style="font-size: 24px">Ajouté au panier</span>
+                </div>
+                <div>
+                    <span class="gras">Nom de l'article :</span>
+                    <span>{{ produit.title }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="actions">
+            <div>
+                <span style="font-weight: bold">Sous-total du panier : </span>
+                <span>{{ prixTotal }} €</span>
+            </div>
+
+            <a type="button" id="order" href="{{ path('order') }}">
+                Passer la commande ({{ nombreArticle }} article{{ nombreArticle > 1 ? 's' }})
+            </a>
+
+            <a type="button" id="goToCart" href="{{ path('cart') }}">
+                Aller au panier
+            </a>
+
+            <a type="button" id="continueMyPurchase" href="{{ app.request.headers.get('referer') }}">
+                Continuer mes achats
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}

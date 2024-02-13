@@ -1,0 +1,217 @@
+.wrapper-content {
+    min-height: 900px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    padding: 24px 96px;
+    gap: 24px;
+}
+#title {
+    font-size: 40px;
+}
+
+#payment {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#payment-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pay-button {
+    background-color: #9CD323;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 20px;
+    font-size: 32px;
+    text-align: center;
+    align-self: flex-end;
+    outline: none;
+    white-space: nowrap;
+}
+
+#payment button[type=submit]:hover {
+    background-color: #45a049;
+}
+
+#delivery-info, #payment-method {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+#delivery-info {
+    grid-template:
+        "texte . ."
+        ". gender ."
+        "firstName lastName phoneNumber"
+        "address zipCode city"
+        "daa . .";
+}
+
+#payment-method {
+    grid-template:
+        "texte texte"
+        "cardNumbers expirationDate"
+        "cardName csc";
+}
+
+#payment-method span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#payment-method > label {
+    display: grid;
+    gap: 16px;
+}
+
+#firstName {grid-area: firstName;}
+#lastName {grid-area: lastName;}
+#phoneNumber {grid-area: phoneNumber;}
+#address {grid-area: address;}
+#postalCode {grid-area: zipCode;}
+#city {grid-area: city;}
+
+#card-numbers {grid-area: cardNumbers;}
+#expiration-date {grid-area: expirationDate;}
+#card-name {grid-area: cardName;}
+#csc {grid-area: csc;}
+
+#delivery-info span, #payment-method > span {
+    font-size: 24px;
+    grid-area: texte;
+}
+
+.info-input {
+    width: 100%;
+    border: 1px solid #596780;
+    border-radius: 10px;
+    padding: 16px 32px;
+
+    &::placeholder {
+        color: #90A3BF;
+    }
+}
+
+#cart-summary {
+    display: grid;
+    gap: 8px;
+    padding: 16px;
+    border: 3px solid #8C8C8C;
+}
+
+#cart-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cart-summary-header span {
+    font-size: 32px;
+}
+
+#cart-summary-header button {
+    padding: 8px;
+}
+
+#toggle-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+}
+
+#toggle-button:hover {
+    filter: invert(42%) sepia(0%) saturate(2863%) hue-rotate(152deg) brightness(84%) contrast(77%);
+}
+
+#toggle-button img {
+    transition: all 0.3s ease-in-out;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
+
+#table {
+    display: table;
+    border-collapse: collapse;
+    font-size: 20px;
+    width: 100%;
+}
+
+#table-container {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease-out;
+}
+
+.th, .td {
+    display: table-cell;
+    padding: 8px;
+}
+
+.tr {
+    display: table-row;
+}
+
+.td {
+    border-top: 1px solid #8C8C8C;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.th {
+    font-weight: bold;
+    color: #8C8C8C;
+    font-size: 24px;
+    text-align: center;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price {
+    white-space: nowrap;
+    color: darkgoldenrod;
+}
+
+#price-summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+#price-summary div {
+    display: grid;
+    font-size: 24px;
+}
+
+#price-summary span:nth-child(-n+2) {
+    color: #8C8C8C;
+}
+
+#default-address-added, #remember-address {
+    grid-area: daa;
+}
+
+#default-address-added {
+    color: #2A60B7;
+}
+
+#remember-address {
+    display: flex;
+    gap: 8px;
+}

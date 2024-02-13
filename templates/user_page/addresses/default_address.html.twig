@@ -1,0 +1,30 @@
+<div class="address default">
+    <div class="default-address">
+        <span class="white" id="default-address">PAR DÉFAUT</span>
+        <label>
+            <input type="radio" class="radio-button" name="addressId" value="{{ defaultAddress.id }}" checked>
+        </label>
+    </div>
+
+    <div class="address-name">
+        <strong>{{ defaultAddress.gender ? 'Mme' : 'M.' }} {{ defaultAddress.lastName }} {{ defaultAddress.firstName }}</strong>
+    </div>
+
+    <div class="address-data">
+        {{ defaultAddress.addressLine }}<br>
+        {{ defaultAddress.postalCode }} {{ defaultAddress.city }}<br>
+        Tel : {{ defaultAddress.phoneNumber }}
+    </div>
+
+    <form action="{{ path('editAddress') }}" method="post">
+        <button class="edit-address" value="{{ defaultAddress.id }}" name="addressId" type="submit">
+            <img alt="edit-address" src="{{ asset('assets/edit.svg') }}" width="30" height="30">
+        </button>
+    </form>
+
+    <form action="{{ path('removeAddress') }}" method="post">
+        <button class="delete-address" value="{{ defaultAddress.id }}" name="addressId" type="submit">
+            <img alt="remove-adress" src="{{ asset('assets/box-remove.svg') }}" width="30" height="30">
+        </button>
+    </form>
+</div>

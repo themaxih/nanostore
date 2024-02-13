@@ -1,0 +1,51 @@
+#manage-address {
+    display: grid;
+    grid-auto-columns: minmax(0, 350px);
+    grid-template:
+        "gender gender gender"
+        "firstName lastName phoneNumber"
+        "address zipCode city"
+        "defaultAddress defaultAddress defaultAddress"
+        ". submit .";
+    margin-top: 24px;
+    gap: 24px;
+}
+
+#is-default {
+    grid-area: defaultAddress;
+    display: flex;
+    gap: 8px;
+    white-space: nowrap;
+    justify-self: center;
+}
+
+#submit-address {
+    grid-area: submit;
+    border: none;
+    background-color: gold;
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 12px 32px;
+
+    &:hover {
+        background-color: #dcbc00;
+    }
+}
+
+#firstName {grid-area: firstName;}
+#lastName {grid-area: lastName;}
+#phoneNumber {grid-area: phoneNumber;}
+#address {grid-area: address;}
+#postalCode {grid-area: zipCode;}
+#city {grid-area: city;}
+
+.info-input {
+    width: 100%;
+    border: 1px solid #596780;
+    border-radius: 10px;
+    padding: 16px 32px;
+
+    &::placeholder {
+        color: #90A3BF;
+    }
+}

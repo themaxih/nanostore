@@ -1,0 +1,46 @@
+.form-group {
+    gap: 24px;
+}
+
+.link {
+    color: #1A4393;
+}
+
+#remember-me {
+    display: flex;
+    gap: 8px;
+}
+
+#password {
+    border: 2px solid #90A3BF;
+    border-radius: 25px;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+#password::placeholder {
+    font-weight: bold;
+    color: #90A3BF;
+}
+
+.login-form button, #register a {
+    font-size: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: #2A60B7;
+    color: white;
+    cursor: pointer;
+}
+
+.login-form button:hover, #register a:hover {
+    background-color: #0056b3;
+}
+
+#register {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}

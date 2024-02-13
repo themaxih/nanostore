@@ -1,0 +1,56 @@
+{% set totalPages = (nombreArticleTrouve // listeProduits.itemNumberPerPage) + (nombreArticleTrouve % listeProduits.itemNumberPerPage > 0 ? 1 : 0) %}
+{% if totalPages > 1 %}
+
+{% set pageNumber = listeProduits.currentPageNumber %}
+{% set path = app.request.pathinfo ~ '?' %}
+{% set params = app.request.query.all %}
+
+<div class="pagination">
+    {# Bouton de la première page #}
+    {% if pageNumber != 1 %}
+        <a class="previous" href="{{ path ~ params|merge({page: pageNumber - 1})|url_encode }}">Précédent</a>
+        <a class="page" href="{{ path ~ params|merge({page: 1})|url_encode }}">1</a>
+    {% else %}
+        <span class="previous disabled">Précédent</span>
+        <span class="current">1</span>
+    {% endif %}
+
+    {# Points de suspension avant la page courante si nécessaire #}
+    {% if pageNumber - 1 > 2 %}
+        <span class="disabled">...</span>
+    {% endif %}
+
+    {# Pages intermédiaires #}
+    {% set startPage = max(2, pageNumber - 2) %}
+    {% set endPage = min(totalPages - 1, pageNumber + 2) %}
+
+    {% if startPage <= endPage %}
+        {% for page in startPage..endPage %}
+            {% if page == pageNumber %}
+                <span class="current">{{ page }}</span>
+            {% else %}
+                <a class="page" href="{{ path ~ params|merge({page: page})|url_encode }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {# Points de suspension après la page courante si nécessaire #}
+    {% if pageNumber + 1 < totalPages - 1 %}
+        <span class="disabled">...</span>
+    {% endif %}
+
+    {% if pageNumber == totalPages %}
+        <span class="current">{{ pageNumber }}</span>
+    {% else %}
+        <a class="page" href="{{ path ~ params|merge({page: totalPages})|url_encode }}">{{ totalPages }}</a>
+    {% endif %}
+
+    {# Bouton "Suivant" #}
+    {% if pageNumber < totalPages %}
+        <a class="next" href="{{ path ~ params|merge({page: pageNumber + 1})|url_encode }}">Suivant</a>
+    {% else %}
+        <span class="next disabled">Suivant</span>
+    {% endif %}
+</div>
+
+{% endif %}

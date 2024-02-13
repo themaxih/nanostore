@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/product_sheet.css') }}"/>
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="wrapper-content">
+        <div id="product-sheet">
+            <h1>{{ produit.title }}</h1>
+            <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="400" height="400">
+            <h2>Description :</h2>
+            <p id="description">{{ produit.description }}</p>
+        </div>
+
+        <div class="white" id="order">
+            <span class="infoText">Prix unitaire : {{ produit.price }} €</span>
+            <form action="{{ path('add_cart') }}">
+                <input type="hidden" name="id" value="{{ produit.id }}">
+                {% if produit.quantityLeft == 0 %}
+                    <span id="out-of-stock">Rupture de stock</span>
+                    <span>L'article est momentanément indisponible</span>
+                {% else %}
+                    <label class="infoText" for="quantity-select">
+                        Quantité :
+                        {% if produit.quantityLeft == 1 %}
+                            1
+                        {% else %}
+                            <select class="pointer" id="quantity-select" name="quantity">
+                                <option value="1" selected>1</option>
+                                {% for i in range(2, min(10, produit.quantityLeft), 1) %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </label>
+                    {% if produit.quantityLeft <= 10 %}
+                        <span id="low-stock">Il ne reste plus que {{ produit.quantityLeft }} exemplaire(s) en stock.</span>
+                    {% else %}
+                        <span id="in-stock">En stock</span>
+                    {% endif %}
+                    <button type="submit" class="add-to-cart white" {{ produit.quantityLeft == 0 ? 'disabled' }}>
+                        Ajouter au panier
+                        <img src="{{ asset('assets/Panier2.svg') }}" alt="Panier" width="32" height="32"/>
+                    </button>
+                {% endif %}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include asset('footer.html.twig') %}
+{% endblock %}

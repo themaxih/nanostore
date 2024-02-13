@@ -1,0 +1,22 @@
+{% extends 'user_page/user_page.html.twig' %}
+
+{% block user_page_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/addresses/manage_address.css') }}">
+{% endblock %}
+
+
+{% block user_page_content %}
+<div class="section">
+    <span class="section-title">Modifier une adresse</span>
+    <form id="manage-address" action="{{ path('modifyAddress') }}" method="post">
+
+        {% include asset('user_page/addresses/address_input.html.twig') %}
+
+        <button id="submit-address" name="addressId" value="{{ adresse.id }}" type="submit">Modifier l'adresse</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/verifyAddressInputs.js') }}"></script>
+{% endblock %}

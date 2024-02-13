@@ -1,0 +1,209 @@
+.wrapper {
+    padding: 0;
+    width: 100%;
+}
+
+.wrapper-content {
+    display: grid;
+    gap: 96px;
+    padding: 24px 144px;
+}
+
+#background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 512px;
+    width: 100%;
+    background-image: url("../assets/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    & span {
+        color: #672403;
+        font-weight: bolder;
+        font-size: 45px;
+        text-shadow: 0 -1px 4px #FFF, 0 -2px 10px #ff0, 0 -10px 20px #ff8000, 0 -18px 40px #F00;
+    }
+
+    & a {
+        padding: 12px 24px;
+        border-radius: 15px;
+        background-color: goldenrod;
+
+        &:hover {
+            background-color: darkgoldenrod;
+        }
+
+        &:active {
+            background-color: #9b7109;
+        }
+    }
+}
+
+#products {
+    display: grid;
+    gap: 250px;
+}
+
+.product {
+    display: grid;
+    gap: 24px;
+    justify-content: center;
+}
+
+.products-presentation {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    gap: 24px;
+
+
+    &.normal {
+        grid-template-areas:
+            "a b"
+            "a c";
+    }
+
+    &.reverse {
+        grid-template-areas:
+            "b a"
+            "c a";
+    }
+
+    & a {
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        width: 795px;
+
+        & span {
+            font-size: 40px;
+            font-weight: bolder;
+            text-shadow: black 0 0 15px;
+            color: white;
+            position: relative;
+            z-index: 1;
+            transition: font-size 0.2s ease;
+        }
+
+        &:hover span {
+            font-size: 45px;
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-repeat: no-repeat;
+            transition: all 0.4s ease;
+        }
+
+        &:hover::before {
+            filter: brightness(50%);
+        }
+
+        &:first-child {
+            height: 795px;
+            grid-area: a;
+        }
+
+        &:nth-child(2) {
+            grid-area: b;
+        }
+
+        &:nth-child(3) {
+            grid-area: c;
+        }
+
+        &:first-child::before {
+            background-size: contain;
+        }
+
+        &:nth-child(n+2)::before {
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}
+
+
+#smartphones::before {background-image: url("../assets/smartphones.png")}
+#smartphones-pliants::before {background-image: url("../assets/smartphones-pliants.png")}
+#telephones-basiques::before {background-image: url("../assets/telephones-basiques.png")}
+#ordinateurs-portables::before {background-image: url("../assets/ordinateurs-portables.png")}
+#ordinateurs-de-bureau::before {background-image: url("../assets/ordinateurs-de-bureau.png")}
+#ordinateurs-gamer::before {background-image: url("../assets/ordinateurs-gaming.png")}
+
+
+
+h1 {
+    color: #98988B;
+    margin: 0;
+    white-space: nowrap;
+
+    &.products-title {
+        font-size: 40px;
+
+        &.left {
+            margin-left: 144px;
+        }
+
+        &.right {
+            margin-right: 144px;
+            text-align: right;
+        }
+    }
+
+    &#heading-text {
+        text-align: center;
+        font-weight: normal;
+
+        & strong {
+            color: black;
+        }
+
+        & .text-france {
+            color: black;
+        }
+
+        & #fr {
+            background-color: #0055A4;
+            padding-right: 0;
+        }
+
+        & #an {
+            background-color: white;
+            padding: 4px 0;
+        }
+
+        & #ce {
+            background-color: #EF4135;
+            padding-left: 0;
+        }
+    }
+}
+
+#strong-points {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+
+    & .strong-point {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+            font-size: 16px;
+
+    }
+}

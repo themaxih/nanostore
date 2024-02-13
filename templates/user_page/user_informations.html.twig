@@ -1,0 +1,67 @@
+{% extends 'user_page/user_page.html.twig' %}
+
+{% block user_page_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/user_informations.css') }}">
+{% endblock %}
+
+
+{% block user_page_content %}
+<div class="section" id="details">
+    <span class="section-title">Coordonnées</span>
+    <div class="form-group">
+        <div class="form-field">
+            <label for="email">Email :</label>
+            <input id="email" size="40" value="{{ email }}" autocomplete="false" disabled>
+        </div>
+
+        <div class="form-field">
+            <label for="firstName">Prénom :</label>
+            <input id="firstName" size="40" value="{{ firstName }}" autocomplete="false" disabled>
+        </div>
+
+        <div class="form-field">
+            <label for="lastName">Nom :</label>
+            <input id="lastName" size="40" value="{{ lastName }}" autocomplete="false" disabled>
+        </div>
+
+        <div class="form-field" id="gender">
+            <span>Civilité :</span>
+            <div id="gender-group">
+                <div>
+                    <label>
+                        <input type="radio" class="radio-button" {{ not gender ? 'checked'}} disabled>
+                        M.
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        <input type="radio" class="radio-button" {{ gender ? 'checked'}} disabled>
+                        Mme
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section" id="change-password">
+    <span class="section-title">Changer votre mot de passe</span>
+
+    <form action="{{ path('password_change') }}" autocomplete="off" method="post">
+        <div class="form-group">
+            <div class="form-field">
+                <label for="old-password">Ancien mot de passe :</label>
+                <input type="password" name="old-password" id="old-password" size="40" required>
+            </div>
+
+            <div class="form-field">
+                <label for="new-password">Nouveau mot de passe :</label>
+                <input type="password" name="new-password" id="new-password" size="40" required>
+            </div>
+        </div>
+
+        <button type="submit" class="white" id="change-password-button">Valider</button>
+    </form>
+</div>
+{% endblock %}

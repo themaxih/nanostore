@@ -1,0 +1,55 @@
+<header>
+    <div id="nav-main">
+        <a type="button" href="{{ path('home') }}">
+            <span>Accueil</span>
+            <img alt="logo" src="{{ asset('assets/Logo_NanoStore.svg') }}" width="80" height="80">
+        </a>
+
+        <form class="barreRecherche" action="{{ path('search') }}">
+            <label>
+                <input type="search" name="term" class="inputText" placeholder="Rechercher..." value="{{ recherche | default("") }}">
+            </label>
+            <button type="submit" class="boutonLoupe">
+                <img alt="search" src="{{ asset('assets/Loupe.svg') }}">
+            </button>
+        </form>
+
+        <a type="button" class="compte" href="{{ path('user_page') }}">
+            <div>
+                <img alt="account" class="icon" src="{{ asset('assets/Compte.svg') }}" width="32" height="32">
+            </div>
+            <span>Compte</span>
+        </a>
+
+        <a type="button" class="panier" href="{{ path('cart') }}">
+            <div style="position: relative">
+                <div class="white" id="item-count">{{ nombreArticle }}</div>
+                <img alt="cart" class="icon" src="{{ asset('assets/Panier.svg') }}" width="32" height="32">
+            </div>
+            <span>Panier</span>
+        </a>
+    </div>
+
+    <nav id="nav-belt">
+        <ul>
+            {% for categorie in categories %}
+                <li class="dropdown">
+                    <a type="button" href="{{ path('search-by-category', {'categoryHrefName': categorie.hrefName}) }}">
+                        {{ categorie.name }}
+                    </a>
+                    <div class="dropdown-content">
+                        <div>
+                            {% for sousCategorie in sousCategories[categorie.hrefName] %}
+                                <div class="sub-category">
+                                    <a type="button" href="{{ path('search-by-sub-category', {'categoryHrefName': categorie.hrefName, 'subCategoryHrefName': sousCategorie.hrefName}) }}" class="white">
+                                        {{ sousCategorie.name }}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>

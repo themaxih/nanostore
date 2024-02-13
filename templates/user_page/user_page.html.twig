@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/user_page.css') }}">
+    {% block user_page_stylesheets %}{% endblock %}
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <span class="title gras">Votre Compte</span>
+    <div class="wrapper-content">
+        <div class="section" id="sidebar">
+            <span class="section-title">Bonjour</span>
+            <span id="identifier">{{ identifier }}</span>
+            <form action="{{ path('logout') }}" method="post">
+                <button class="gras" type="submit" id="logout">ME DÉCONNECTER</button>
+            </form>
+            <div id="sidebar-sections">
+                <a type="button" href="{{ path('user_informations') }}" class="sidebar-button">Mes informations</a>
+                <a type="button" href="{{ path('user_addresses') }}" class="sidebar-button">Mes adresses</a>
+                <a type="button" href="{{ path('user_orders') }}" class="sidebar-button">Mes commandes</a>
+            </div>
+        </div>
+
+        {% block user_page_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include asset('footer.html.twig') %}
+{% endblock %}

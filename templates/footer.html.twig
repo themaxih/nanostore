@@ -1,0 +1,73 @@
+<footer>
+    <div id="top-wrapper">
+        <div id="contact">
+            <span class="white">Nous contacter :</span>
+            <a type="button" href="tel:+0666666666" class="contact-button">
+                <i>📞</i>
+                <span class="white">06 66 66 66 66</span>
+            </a>
+            <a type="button" href="mailto:nanostore@gmail.com" class="contact-button">
+                <i>✉️</i>
+                <span class="white">nanostore@gmail.com</span>
+            </a>
+        </div>
+
+        <form id="newsletter" action="{{ path('subscribe-newsletter') }}" method="post">
+            <label class="white" for="newsletter-email">S'abonner à notre newsletter :</label>
+            <input type="email" id="newsletter-email" name="email" placeholder="Votre email" spellcheck="false" autocomplete="email" required>
+            <button class="white" type="submit" name="current-url" value="{{ app.request.requesturi }}">OK</button>
+        </form>
+
+        <div id="payments-accepted">
+            <span class="white">Mode de paiements acceptés</span>
+            <div id="payments-accepted-content">
+                <img src="{{ asset('assets/visa.svg') }}" alt="visa">
+                <img src="{{ asset('assets/mastercard.svg') }}" alt="mastercard">
+                <img src="{{ asset('assets/paypal.svg') }}" alt="paypal">
+                <img src="{{ asset('assets/cb.svg') }}" alt="cb">
+            </div>
+        </div>
+    </div>
+
+    <div id="bottom-wrapper">
+        <div id="bottom-content">
+            <div style="display: flex; gap: 72px">
+                <div id="instalments-payment" class="transaction-options">
+                    <img src="{{ asset('assets/paiement-en-3x-sans-frais.svg') }}" alt="paiement-3-fois">
+                    <div>
+                        <span>Paiement en 3 fois</span>
+                        <span class="white">Par carte bancaire à partir de 100€ d'achat.</span>
+                    </div>
+                </div>
+
+                <div id="express-delivery" class="transaction-options">
+                    <img src="{{ asset('assets/camion.svg') }}" alt="livraison-express">
+                    <div>
+                        <span>Livraison express</span>
+                        <span class="white">Livraison rapide garantie !</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about-us">
+                <h1 class="white">À propos de nous :</h1>
+                <p class="white">
+                    Chez NanoStore, notre passion est de démystifier l'univers complexe
+                    de la technologie et de rendre l'achat de matériel informatique aussi
+                    simple et intuitif que possible. Fondée par des passionnés de tech et
+                    d'innovation, notre entreprise s'engage à fournir une expérience
+                    utilisateur exceptionnelle, en sélectionnant les meilleurs produits
+                    et en offrant des conseils personnalisés pour répondre aux besoins de chacun.
+                    Nous croyons que la technologie doit être accessible à tous, et c'est
+                    pourquoi nous travaillons sans relâche pour vous proposer des solutions
+                    informatiques à la fois avancées et faciles à utiliser. Rejoignez-nous
+                    dans notre mission pour simplifier la technologie et enrichir votre quotidien numérique.
+                </p>
+            </div>
+
+            <img alt="logo" src="{{ asset('assets/Logo_NanoStore.svg') }}" width="120" height="120">
+        </div>
+
+        <span class="white" id="copyright">© 2023 NanoStore. Tous droits réservés.</span>
+    </div>
+</footer>

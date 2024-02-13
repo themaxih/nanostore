@@ -1,0 +1,81 @@
+{% extends 'user_page/user_page.html.twig' %}
+
+{% block user_page_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/user_orders.css') }}">
+{% endblock %}
+
+
+{% block user_page_content %}
+<div class="section" id="order-section">
+    <span class="section-title">Vos commandes</span>
+
+    <div id="orders">
+        {% for commande in commandes|reverse %}
+            <div class="order">
+                <div class="order-header">
+                    <div class="order-information">
+                        <span>COMMANDE EFFECTUÉE LE</span>
+                        <span>{{ commande.orderDate|format_datetime('long', 'none', locale='fr') }}</span>
+                    </div>
+
+                    <div class="order-information">
+                        <span>LIVRAISON À</span>
+                        <span>{{ not commande.gender ? 'M.' : 'Mme' }} {{ commande.firstName }} {{ commande.lastName }}</span>
+                    </div>
+
+                    <div class="order-information">
+                        <span>TOTAL</span>
+                        <span>{{ commande.totalPrice }} €</span>
+                    </div>
+
+                    <div class="order-information">
+                        <span>N° DE COMMANDE</span>
+                        <span>{{ commande.user.userId }}-{{ commande.id }}</span>
+                    </div>
+
+                    <button type="button" class="toggle-button">
+                        Détail
+                        <img alt="up arrow" src="{{ asset('assets/up_arrow.svg') }}" width="32" height="32">
+                    </button>
+                </div>
+                <div class="order-content">
+                        <div class="table">
+                            <div class="tr">
+                                <div class="th">Articles</div>
+                                <div class="th">Prix</div>
+                                <div class="th">Quantité</div>
+                                <div class="th">Prix total</div>
+                            </div>
+                            {% for commandeProduit in commande.orderProducts %}
+                            {% set produit, quantite = commandeProduit.product, commandeProduit.quantity %}
+                                <div class="tr">
+                                    <div class="td">
+                                        <div class="product-title">
+                                            <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="120" height="120">
+                                            {{ produit.title }}
+                                        </div>
+                                    </div>
+                                    <div class="td price gras">{{ produit.price }} €</div>
+                                    <div class="td">{{ quantite }}</div>
+                                    <div class="td price gras">{{ produit.price * quantite }} €</div>
+                                    <div class="td buy-again">
+                                        <a type="button" href="{{ '/product?' ~ {'ref': produit.title}|url_encode }}">
+                                            Acheter à nouveau
+                                            <img alt="buy again logo" src="{{ asset('assets/Panier3.svg') }}" width="40" height="40">
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            Vous n'avez aucune commande.
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/toggleOrder.js') }}"></script>
+{% endblock %}

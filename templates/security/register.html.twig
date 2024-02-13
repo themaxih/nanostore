@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/security/security.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/security/register.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/iconHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="wrapper-content">
+        <span class="title gras">Création du compte</span>
+
+        <div class="register-form">
+            {{ form_start(registrationForm) }}
+            <span>Vos identifiants</span>
+            <div class="form-group">
+                {{ form_widget(registrationForm.email) }}
+                {{ form_widget(registrationForm.plainPassword.first) }}
+                {{ form_widget(registrationForm.plainPassword.second) }}
+                <div id="password-info">
+                    <i>𝒊</i>
+                    <span>Le mot de passe doit faire au minimum 6 caractères.</span>
+                </div>
+            </div>
+
+            <span>Vos informations personnelles</span>
+
+            <div id="{{ registrationForm.gender.vars.id }}" class="gender-group">
+                <div>
+                    {{ form_widget(registrationForm.gender.children[0]) }}
+                    {{ form_label(registrationForm.gender.children[0]) }}
+                </div>
+
+                <div>
+                    {{ form_widget(registrationForm.gender.children[1]) }}
+                    {{ form_label(registrationForm.gender.children[1]) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_widget(registrationForm.firstName) }}
+                {{ form_widget(registrationForm.lastName) }}
+            </div>
+
+            <div id="agree-terms">
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
+
+            <button class="white" type="submit">Valider</button>
+            {{ form_end(registrationForm) }}
+            <hr>
+            <div id="login">
+                <span>Déjà membre ?</span>
+                <a class="white" type="button" href="{{ path('login') }}">Se connecter</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/CapitalizeLastAndFirstNameInputs.js') }}"></script>
+{% endblock %}

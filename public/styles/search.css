@@ -1,0 +1,146 @@
+.content {
+    height: fit-content;
+    display: flex;
+    min-height: 500px;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    background-color: white;
+    padding: 24px;
+    margin: 24px 96px;
+}
+
+.content > span:first-child {
+    font-size: 32px;
+}
+
+#table {
+    display: table;
+    border-collapse: collapse;
+    font-size: 20px;
+    width: 100%;
+}
+
+.th, .td {
+    display: table-cell;
+    padding: 8px;
+}
+
+.tr {
+    display: table-row;
+}
+
+.td {
+    border-top: 1px solid #8C8C8C;
+    text-align: left;
+    vertical-align: middle;
+    color: black;
+}
+
+.th {
+    font-weight: bold;
+    color: #8C8C8C;
+    font-size: 24px;
+    text-align: center;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.product {
+    transition: all 0.1s ease;
+}
+
+.product:hover {
+    background-color: #f5f5f5;
+}
+
+.price {
+    white-space: nowrap;
+    color: darkgoldenrod;
+}
+
+.description {
+    min-width: 350px;
+}
+
+.add-to-cart {
+    background-color: #9CD323;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap;
+
+    &:not(:disabled):hover {
+         background-color: #45a049;
+    }
+
+    &:disabled {
+         opacity: 50%;
+    }
+}
+
+#search-result {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px
+}
+
+#search-sort {
+    text-align: center;
+    font-size: 16px;
+    background-color: #f0d7d7;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 4px;
+}
+
+#low-stock, #out-of-stock {
+    text-align: left;
+}
+
+.pagination {
+    display: flex;
+    justify-self: center;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.15);
+    white-space: nowrap;
+
+    & .current {
+        border: 1px solid black;
+    }
+
+    & .disabled {
+        color: gray;
+    }
+
+    & .current, .disabled {
+        cursor: default;
+    }
+
+    & a:hover {
+        transition: all 0.2s ease;
+        background-color: white;
+        &:hover {
+             background-color: #f5f6f6;
+        }
+    }
+
+    & * {
+        display: block;
+        padding: 12px 16px;
+    }
+}

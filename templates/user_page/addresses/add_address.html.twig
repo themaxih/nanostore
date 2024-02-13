@@ -1,0 +1,26 @@
+{% extends 'user_page/user_page.html.twig' %}
+
+{% block user_page_stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/user_page/addresses/manage_address.css') }}">
+{% endblock %}
+
+
+{% block user_page_content %}
+<div class="section">
+    <span class="section-title">Ajouter une nouvelle adresse</span>
+    <form id="manage-address" action="{{ path('addAddress') }}" method="post">
+
+        {% include asset('user_page/addresses/address_input.html.twig') %}
+
+        <label id="is-default">
+            <input type="checkbox" name="is-default" class="checkbox">
+            Faire de cette adresse mon adresse par défaut
+        </label>
+        <button id="submit-address" type="submit">Ajouter une adresse</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/verifyAddressInputs.js') }}"></script>
+{% endblock %}

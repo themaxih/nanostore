@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/security/security.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/security/login.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/iconHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="wrapper-content">
+        <span class="title gras">Identifiez-vous</span>
+
+        <div class="login-form">
+            <span>Vous êtes déjà client ?</span>
+            <hr>
+            <form id="login" method="post">
+                <div class="form-group">
+                    <label for="inputEmail" hidden></label>
+                    <input type="email" id="inputEmail" name="email" placeholder="Email" value="{{ last_username }}" autocomplete="email" spellcheck="false" required autofocus>
+                    <label for="inputPassword" hidden></label>
+                    <input type="password" id="inputPassword" name="password" placeholder="Mot de passe" autocomplete="current-password" required>
+                </div>
+                <a class="link" href="{{ path('forgot_password') }}">Mot de passe oublié ?</a>
+
+                <label id="remember-me">
+                    <input type="checkbox" class="checkbox" name="_remember_me">
+                    Rester connecté
+                </label>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button type="submit">Connexion</button>
+            </form>
+            <hr>
+            <div id="register">
+                <span>Nouveau chez nous ?</span>
+                <a type="button" href="{{ path('register') }}">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

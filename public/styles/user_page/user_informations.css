@@ -1,0 +1,79 @@
+.wrapper-content {
+    display: inline-grid;
+    grid-template-areas:
+                "sidebar details"
+                "sidebar change-password";
+}
+
+.form-field > span:first-child,
+.form-field label,
+.form-field input,
+#change-password-button {
+    font-size: 20px;
+}
+
+#sidebar .section-title {
+    margin-bottom: 8px;
+}
+
+#details, #change-password {
+    padding-left: 288px;
+    padding-right: 288px;
+}
+
+#details {
+    grid-area: details;
+}
+
+#change-password {
+    grid-area: change-password;
+}
+
+#details .section-title,
+#change-password .section-title {
+    margin-bottom: 32px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    &.form-field > input {
+        padding: 12px 15px;
+        width: max-content;
+        color: black;
+        border: 2px solid #90A3BF;
+    }
+}
+
+#gender-group {
+    display: flex;
+    gap: 24px;
+    align-self: center;
+}
+
+#change-password form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#change-password-button {
+    border-radius: 25px;
+    background-color: #2A60B7;
+    padding: 8px 24px;
+    border-color: transparent;
+    width: fit-content;
+
+    &#change-password-button:hover {
+        background-color: #1A4393;
+    }
+}

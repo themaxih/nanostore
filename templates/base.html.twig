@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+    <head>
+        <meta charset="UTF-8">
+        <title>NanoStore</title>
+        <link rel="icon" href="{{ asset('assets/favicon.ico') }}" type="image/x-icon">
+        <link href='https://fonts.googleapis.com/css?family=Lexend' rel='stylesheet'>
+        <link href="{{ asset('styles/default.css') }}" rel="stylesheet">
+
+        {% block stylesheets %}{% endblock %}
+    </head>
+
+    <body>
+        {% block header %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block footer %}{% endblock %}
+
+        {% set snackbars = app.flashes('snackbars') %}
+        {% if not snackbars is empty %}
+            <div id="snackbars">
+                {% for snackbar in snackbars %}
+                    {{ snackbar|raw }}
+                {% endfor %}
+            </div>
+            <script src="{{ asset('scripts/closingSnackbars.js') }}"></script>
+        {% endif %}
+
+        <a type="button" href="#" id="retour-haut" style="visibility: hidden" draggable="false">
+            <img alt="Up arrow" src="{{ asset('assets/up_arrow.svg') }}" width="32" height="32" draggable="false">
+        </a>
+
+        <script src="{{ asset('scripts/backToTheTopButton.js') }}"></script>
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

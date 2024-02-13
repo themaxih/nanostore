@@ -1,0 +1,3 @@
+# translations/login.fr.yaml
+'Bad credentials.': 'Identifiants incorrects, veuillez vérifier votre email et mot de passe.'
+'The presented password is invalid.': 'Le mot de passe est incorrect, veuillez réessayer.'

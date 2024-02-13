@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/order.css') }}"/>
+{% endblock %}
+
+{% block header %}
+    {% include asset('headers/searchHeader.html.twig') %}
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="wrapper-content">
+        <span id="title">Paiement</span>
+        <form id="payment" action="{{ path('order_validate') }}" method="post">
+            <div id="delivery-info">
+                <span>Informations de livraison</span>
+                {% include asset('user_page/addresses/address_input.html.twig') %}
+                {% if adresse is defined and not adresse is null %}
+                    <div id="default-address-added">L'adresse par défaut a été appliquée.</div>
+                {% else %}
+                    <label id="remember-address">
+                        <input type="checkbox" name="remember-address" class="checkbox">
+                        Enregistrer cette adresse
+                    </label>
+                {% endif %}
+            </div>
+
+            <div id="cart-summary">
+                <div id="cart-summary-header">
+                    <span>Votre Panier ({{ nombreArticleAchete }} article{{ nombreArticle > 1 ? 's' }})</span>
+                    <button type="button" id="toggle-button">
+                        Détail
+                        <img alt="up arrow" src="{{ asset('assets/up_arrow.svg') }}" width="32" height="32">
+                    </button>
+                </div>
+                <div id="table-container">
+                    <div id="table">
+                        <div class="tr">
+                            <div class="th">Articles</div>
+                            <div class="th">Prix</div>
+                            <div class="th">Quantité</div>
+                            <div class="th">Prix total</div>
+                        </div>
+                        {% set prixTotal = 0 %}
+                        {% for panierProduit in panierProduits %}
+                            {% set produit = panierProduit.product %}
+                            {% set quantiteChoisis = min(produit.quantityLeft, panierProduit.quantityChosen) %}
+
+                            {% if produit.quantityLeft != 0 %}
+                                {% set prixTotal = prixTotal + quantiteChoisis * produit.price %}
+                                <div class="tr">
+                                    <div class="td">
+                                        <div class="title">
+                                            <img alt="{{ produit.title }}" src="{{ asset('assets/Produits/' ~ produit.nomImage) }}" width="120" height="120">
+                                            {{ produit.title }}
+                                        </div>
+                                    </div>
+                                    <div class="td price gras">{{ produit.price }} €</div>
+                                    <div class="td">{{ quantiteChoisis }}</div>
+                                    <div class="td price gras">{{ produit.price * quantiteChoisis }} €</div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="payment-method">
+                <span>
+                    Méthode de paiement
+                    <img alt="visa" src="{{ asset('assets/visa2.svg') }}" width="48" height="16">
+                    <img alt="mastercard" src="{{ asset('assets/mastercard2.svg') }}" width="32" height="20">
+                </span>
+
+                <label id="card-numbers">
+                    <span>Numéro de carte</span>
+                    <input class="info-input" name="card-numbers"
+                           placeholder="1234 5678 1234 5678"
+                           autocomplete="cc-number"
+                           minlength="19"
+                           maxlength="19"
+                           required>
+                </label>
+
+                <label id="expiration-date">
+                    <span>Date d'expiration</span>
+                    <input class="info-input" name="expiration-date"
+                           autocomplete="off"
+                           min="{{ 'now'|date('Y-m-01') }}"
+                           max="{{ '+4 years'|date('Y') ~ '-12-01' }}"
+                           type="date"
+                           required>
+                </label>
+
+                <label id="card-name">
+                    <span>Nom sur la carte</span>
+                    <input class="info-input" name="card-name"
+                           placeholder="Simon Strueux"
+                           spellcheck="false"
+                           autocomplete="cc-name"
+                           required>
+                </label>
+
+                <label id="csc">
+                    <span>CVC</span>
+                    <input class="info-input" name="csc" placeholder="123" autocomplete="cc-csc"
+                           minlength="3"
+                           maxlength="3"
+                           required>
+                </label>
+            </div>
+
+            <div id="price-summary">
+                <div>
+                    <span>Sous-total du panier :</span>
+                    <span>Livraison :</span>
+                    <span>TOTAL TTC :</span>
+                </div>
+
+                <div>
+                    <span>{{ prixTotal }} €</span>
+                    <span>10 €</span>
+                    <span>{{ prixTotal + 10 }} €</span>
+                </div>
+            </div>
+
+            <div id="payment-button-wrapper">
+                <button class="pay-button white" type="submit">PAYER</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('scripts/toggleCart.js') }}"></script>
+    <script src="{{ asset('scripts/verifyAddressInputs.js') }}"></script>
+    <script src="{{ asset('scripts/verifyPaymentInputs.js') }}"></script>
+{% endblock %}

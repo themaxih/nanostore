@@ -1,0 +1,127 @@
+.table {
+    display: table;
+    border-collapse: collapse;
+    font-size: 20px;
+    width: 100%;
+}
+
+.th, .td {
+    display: table-cell;
+    padding: 8px;
+}
+
+.tr {
+    display: table-row;
+}
+
+.td {
+    border-top: 1px solid #8C8C8C;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.th {
+    font-weight: bold;
+    color: #8C8C8C;
+    font-size: 24px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    min-width: 1200px;
+    min-height: 500px;
+}
+
+.order {
+    border-radius: 10px;
+    border: 2px solid;
+    overflow: hidden;
+    width: 100%;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 96px;
+    background-color: #3D81DB;
+    padding: 24px;
+    transition: border-radius 0.5s ease;
+}
+
+.order-content {
+    display: flex;
+    justify-content: center;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: height 0.5s ease-out, padding 0.5s ease-in-out;
+}
+
+.order-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-information span:first-child {
+    font-size: 20px;
+    color: white;
+    white-space: nowrap;
+}
+
+#order-section .section-title {
+    margin-bottom: 32px;
+}
+
+.product-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price {
+    white-space: nowrap;
+    color: darkgoldenrod;
+}
+
+.buy-again a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    gap: 8px;
+    background-color: #FFD814;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    white-space: nowrap;
+}
+
+.buy-again a:hover {
+    background-color: #d9b712;
+}
+
+.toggle-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: transparent;
+    font-size: 24px;
+}
+
+.toggle-button:hover {
+    filter: invert(42%) sepia(0%) saturate(2863%) hue-rotate(152deg) brightness(84%) contrast(77%);
+}
+
+.toggle-button img {
+    transition: all 0.3s ease-in-out;
+}
+
+.rotated {
+    transform: rotate(180deg);
+}
